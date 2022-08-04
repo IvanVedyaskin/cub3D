@@ -2,6 +2,10 @@ NAME = cub3D
 
 SRCS_DIR = src/
 
+LIBMLX_DIR = mlx/
+
+LIBMLX = libmlx.a
+
 INC_DIR = includes
 
 SRCS_F = main.c
@@ -16,19 +20,24 @@ CC = cc -Wall -Wextra -Werror -MMD
 
 RM = rm -rf
 
-all: $(NAME)
+all: libmakes $(NAME) 
 
 %.o: %.c
-	$(CC) -I$(INC_DIR) -c $< -o $@
+	$(CC) -I$(INC_DIR) -I$(LIBMLX_DIR) -c $< -o $@
 
-$(NAME): Makefile $(SRCS_O) $(SRCS_D) $(SRCS_D)
-	$(CC) $(SRCS_O) -I$(INC_DIR) -o $@
+$(NAME): Makefile $(SRCS_O)
+	$(CC) $(SRCS_O) -I$(INC_DIR) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
+
+libmakes: 
+	@make -C $(LIBMLX_DIR)
 
 clean:
 	$(RM) $(SRCS_O) $(SRCS_D)
+	$(RM) $(LIBMLX_DIR)*.o
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) $(addprefix $(LIBMLX_DIR), $(LIBMLX))
 
 re: fclean all
 

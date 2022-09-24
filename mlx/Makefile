@@ -8,9 +8,9 @@ OBJ1=$(SRC:.c=.o)
 OBJ=$(OBJ1:.m=.o)
 CFLAGS+=-O2
 
-# add to match string put with X11 in size and position
-CFLAGS+= -DSTRINGPUTX11
-CFLAGS += -w
+	# add to match string put with X11 in size and position
+CFLAGS	+= -DSTRINGPUTX11
+CFLAGS	+= -w
 
 all: $(NOM)
 
